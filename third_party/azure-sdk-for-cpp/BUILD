@@ -104,7 +104,7 @@ cc_library(
         "src/sdk/storage/azure-storage-common/inc/azure/storage/common/internal/xml_wrapper.hpp",
         "src/sdk/storage/azure-storage-common/inc/azure/storage/common/storage_common.hpp",
         "src/sdk/storage/azure-storage-common/inc/azure/storage/common/storage_credential.hpp",
-        "src/sdk/storage/azure-storage-common/inc/azure/storage/common/storage_exception.hpp"        
+        "src/sdk/storage/azure-storage-common/inc/azure/storage/common/storage_exception.hpp"
     ],
     srcs = [
         "src/sdk/storage/azure-storage-common/src/private/package_version.hpp",
@@ -119,11 +119,12 @@ cc_library(
         "src/sdk/storage/azure-storage-common/src/storage_per_retry_policy.cpp",
         "src/sdk/storage/azure-storage-common/src/storage_switch_to_secondary_policy.cpp",
         # This requires libxml
-        # "src/sdk/storage/azure-storage-common/src/xml_wrapper.cpp"        
+        "src/sdk/storage/azure-storage-common/src/xml_wrapper.cpp"
     ],
-    copts = COPTS,    
+    copts = COPTS,
     deps = [
         ":core",
+        "//third_party/libxml2",
     ]
 )
 
@@ -145,7 +146,7 @@ cc_library(
         "src/sdk/storage/azure-storage-blobs/inc/azure/storage/blobs/block_blob_client.hpp",
         "src/sdk/storage/azure-storage-blobs/inc/azure/storage/blobs/dll_import_export.hpp",
         "src/sdk/storage/azure-storage-blobs/inc/azure/storage/blobs/page_blob_client.hpp",
-        "src/sdk/storage/azure-storage-blobs/inc/azure/storage/blobs.hpp"        
+        "src/sdk/storage/azure-storage-blobs/inc/azure/storage/blobs.hpp"
     ],
     srcs = [
         "src/sdk/storage/azure-storage-blobs/src/private/package_version.hpp",
@@ -163,5 +164,17 @@ cc_library(
     copts = COPTS,
     deps = [
         ":azure-storage-common",
+    ]
+)
+
+# Samples of blob storage
+cc_binary(
+    name = "blob_getting_started",
+    copts = COPTS,
+    srcs = [
+        "src/sdk/storage/azure-storage-blobs/samples/blob_getting_started.cpp",
+    ],
+    deps = [
+        ":azure-storage-blobs"
     ]
 )

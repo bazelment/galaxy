@@ -1,5 +1,8 @@
 cc_library(
     name = "libxml2",
+    visibility = [
+        "//visibility:public",
+    ],
     includes = [
         "src/include",
         # TODO: auto generate xmlversion.h based on building platform
@@ -124,5 +127,11 @@ cc_library(
         "-Ithird_party/libxml2/build/linux-x64",
     ],
     deps = [
-    ]
+    ],
+    linkopts = [
+        # TODO: zlib and lzma should build from source.
+        "-lz",
+        "-llzma",
+
+    ],
 )
