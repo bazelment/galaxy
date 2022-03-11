@@ -14,6 +14,8 @@ deps = {
   'galaxy/third_party/nasm': {
       'url': 'https://chromium.googlesource.com/chromium/deps/nasm.git@9215e8e1d0fe474ffd3e16c1a07a0f97089e6224'
   },
+  # Used by azure-sdk-for-cpp
+  'galaxy/third_party/libxml2/src': 'https://github.com/GNOME/libxml2.git@v2.9.13',
   # Cloud storage sdk
   'galaxy/third_party/aws-sdk-cpp/src': 'https://github.com/aws/aws-sdk-cpp.git@1.9.168',
   'galaxy/third_party/azure-sdk-for-cpp/src': 'https://github.com/Azure/azure-sdk-for-cpp.git@ae3e5e021b779bcadcc5d015dbeee913c44ff305',
