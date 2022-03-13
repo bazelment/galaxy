@@ -1,5 +1,10 @@
 workspace(name="galaxy")
 
+# All new_local_repository, they can't show up after `load` calls, so
+# put them at the beginning.
+# Start of zlib
+# End of zlib
+
 local_repository(
     name = "bazel_skylib",
     path = "third_party/bazel-skylib",
@@ -14,11 +19,6 @@ local_repository(
     name = "rules_jvm_external",
     path = "third_party/rules_jvm_external",
 )
-load("@rules_jvm_external//:repositories.bzl", "rules_jvm_external_deps")
-rules_jvm_external_deps()
-load("@rules_jvm_external//:setup.bzl", "rules_jvm_external_setup")
-rules_jvm_external_setup()
-load("@rules_jvm_external//:defs.bzl", "maven_install")
 
 local_repository(
   name = "boringssl",
@@ -45,6 +45,35 @@ local_repository(
     path = "third_party/protobuf",
 )
 
+local_repository(
+    name = "com_github_grpc_grpc",
+    path = "third_party/grpc",
+)
+
+new_local_repository(
+    name = "com_github_cares_cares",
+    path = "third_party/c-ares",
+    build_file = "@com_github_grpc_grpc//third_party:cares/cares.BUILD",
+)
+
+new_local_repository(
+    name = "zlib",
+    path = "third_party/zlib",
+    build_file = "@com_github_grpc_grpc//third_party:zlib.BUILD",
+)
+
+# new_local_repository can't be used after load, so putting all load calls at the end.
+
+# Start of rules_jvm_external
+load("@rules_jvm_external//:repositories.bzl", "rules_jvm_external_deps")
+rules_jvm_external_deps()
+load("@rules_jvm_external//:setup.bzl", "rules_jvm_external_setup")
+rules_jvm_external_setup()
+load("@rules_jvm_external//:defs.bzl", "maven_install")
+
+# End of rules_jvm_external
+
+# Start of protobuf
 load("@com_google_protobuf//:protobuf_deps.bzl", "PROTOBUF_MAVEN_ARTIFACTS", "protobuf_deps")
 protobuf_deps()
 
@@ -69,11 +98,6 @@ pinned_maven_install()
 # End of protobuf
 
 # Start of grpc
-local_repository(
-    name = "com_github_grpc_grpc",
-    path = "third_party/grpc",
-)
-
 load("@com_github_grpc_grpc//bazel:grpc_deps.bzl", "grpc_deps", "grpc_test_only_deps")
 grpc_deps()
 grpc_test_only_deps()
