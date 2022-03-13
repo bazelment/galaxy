@@ -2,6 +2,12 @@ vars = {
 }
 
 deps = {
+  # bazel rules
+  'galaxy/third_party/bazel-skylib': 'https://github.com/bazelbuild/bazel-skylib.git@1.2.1',
+  'galaxy/third_party/rules_python': 'https://github.com/bazelbuild/rules_python.git@0.7.0',
+  'galaxy/third_party/rules_jvm_external': 'https://github.com/bazelbuild/rules_jvm_external.git@4.2',
+
+  # C++ libs
   'galaxy/third_party/libc++/trunk':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libcxx.git@79a2e924d96e2fc1e4b937c42efd08898fa472d7',
   'galaxy/third_party/libc++abi/trunk':
