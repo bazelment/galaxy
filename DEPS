@@ -20,6 +20,11 @@ deps = {
   'galaxy/third_party/aws-sdk-cpp/src': 'https://github.com/aws/aws-sdk-cpp.git@1.9.168',
   'galaxy/third_party/azure-sdk-for-cpp/src': 'https://github.com/Azure/azure-sdk-for-cpp.git@ae3e5e021b779bcadcc5d015dbeee913c44ff305',
 
+  'galaxy/third_party/googletest': 'https://github.com/google/googletest.git',
+  # Micro benchmark framework.
+  'galaxy/third_party/benchmark': 'https://github.com/google/benchmark.git',
+  'galaxy/third_party/abseil-cpp': 'https://github.com/abseil/abseil-cpp.git',
+
   # protobuf & grpc
   'galaxy/third_party/protobuf': 'https://github.com/protocolbuffers/protobuf.git@v3.19.2',
   'galaxy/third_party/grpc': 'https://github.com/grpc/grpc.git@v1.43.0',
