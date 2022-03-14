@@ -34,6 +34,18 @@ cc_grpc_library(
     deps = [":remote_log_cc_proto"],
 )
 
+cc_binary(
+    name = "log_server",
+    srcs = [ "log_server.cc",
+    ],
+    deps = [
+        "@com_github_grpc_grpc//:grpc++",
+        "@com_github_grpc_grpc//:grpc++_reflection",
+        ":remote_log_cc_grpc",
+    ]
+)
+
+# Client and log appender
 java_proto_library(
     name = "remote_log_java_proto",
     deps = [":remote_log_proto"],
@@ -53,18 +65,20 @@ java_library(
     deps = [
         ":remote_log_java_proto",
         ":remote_log_java_grpc",
+        "@io_grpc_grpc_java//api",
         "@io_grpc_grpc_java//stub",
+        "@maven//:org_apache_logging_log4j_log4j_core",
     ]
 )
 
-cc_binary(
-    name = "log_server",
-    srcs = [ "log_server.cc",
+java_library(
+    name = "grpc_log_appender",
+    srcs = [
+        "GrpcLogAppender.java"
     ],
     deps = [
-        "@com_github_grpc_grpc//:grpc++",
-        "@com_github_grpc_grpc//:grpc++_reflection",
-        ":remote_log_cc_grpc",
+        ":remote_log_java_client",
+        "@maven//:org_apache_logging_log4j_log4j_api",
+        "@maven//:org_apache_logging_log4j_log4j_core",
     ]
 )
-
