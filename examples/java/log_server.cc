@@ -40,6 +40,7 @@ class RemoteLogServiceImpl final : public RemoteLog::Service {
              LogResponse* reply) override {
     // std::string prefix("Hello ");
     // reply->set_message(prefix + request->name());
+    std::cout << request->content() << std::endl;
     return Status::OK;
   }
 };

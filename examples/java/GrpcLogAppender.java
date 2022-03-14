@@ -22,7 +22,7 @@ import com.example.remote_log.RemoteLogJavaClient;
 /**
  * Sends log events over HTTP.
  */
-@Plugin(name = "Grpc", category = Node.CATEGORY, elementType = Appender.ELEMENT_TYPE, printObject = true)
+@Plugin(name = "GRPC", category = Node.CATEGORY, elementType = Appender.ELEMENT_TYPE, printObject = true)
 public final class GrpcLogAppender extends AbstractAppender {
 
   /**
@@ -38,6 +38,7 @@ public final class GrpcLogAppender extends AbstractAppender {
 
     @Override
     public GrpcLogAppender build() {
+      System.out.println("Create client with " + url);
       final RemoteLogJavaClient client = new RemoteLogJavaClient(url);
       return new GrpcLogAppender(getName(), getLayout(), getFilter(), isIgnoreExceptions(), client,
                                  getPropertyArray());
@@ -66,6 +67,7 @@ public final class GrpcLogAppender extends AbstractAppender {
   private GrpcLogAppender(final String name, final Layout<? extends Serializable> layout, final Filter filter,
                           final boolean ignoreExceptions, final RemoteLogJavaClient logClient, final Property[] properties) {
     super(name, filter, layout, ignoreExceptions, properties);
+    System.out.println("Create GrpcLogAppender with " + logClient);
     Objects.requireNonNull(layout, "layout");
     this.logClient = Objects.requireNonNull(logClient, "logClient");
   }
@@ -77,6 +79,7 @@ public final class GrpcLogAppender extends AbstractAppender {
 
   @Override
   public void append(final LogEvent event) {
+    System.out.println("log event");
     try {
       // Skip getLayout() 
       logClient.log(event);

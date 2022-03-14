@@ -1,3 +1,11 @@
+java_plugin(
+    name = "log4j_plugin_processor",
+    processor_class = "org.apache.logging.log4j.core.config.plugins.processor.PluginProcessor",
+    deps = [
+        "@maven//:org_apache_logging_log4j_log4j_core",
+    ],
+)
+
 java_binary(
     name = "log_generator",
     srcs = [
@@ -5,12 +13,14 @@ java_binary(
     ],
     main_class = "LogGenerator",
     resources = [
-        "log4j2.xml"
+        # Disable this to use config in code.
+        # "log4j2.xml"
     ],
     deps = [
         "@maven//:org_apache_logging_log4j_log4j_api",
         "@maven//:org_apache_logging_log4j_log4j_core",
-    ]
+        ":grpc_log_appender",
+    ],
 )
 
 load("@rules_proto//proto:defs.bzl", "proto_library")
@@ -68,13 +78,19 @@ java_library(
         "@io_grpc_grpc_java//api",
         "@io_grpc_grpc_java//stub",
         "@maven//:org_apache_logging_log4j_log4j_core",
-    ]
+    ],
+    runtime_deps = [
+        "@io_grpc_grpc_java//netty",
+    ],
 )
 
 java_library(
     name = "grpc_log_appender",
     srcs = [
         "GrpcLogAppender.java"
+    ],
+    plugins = [
+        ":log4j_plugin_processor",
     ],
     deps = [
         ":remote_log_java_client",
