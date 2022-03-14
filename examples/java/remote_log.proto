@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+// A RPC service that accepts log message.
+
+package remote_log;
+
+message LogMessage {
+  string content = 1;
+}
+
+message LogResponse {
+}
+
+service RemoteLog {
+  rpc Log (LogMessage) returns (LogResponse) {}
+}
