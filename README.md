@@ -3,6 +3,18 @@ A mono repo for everything you need to build a galaxy with bazel, while
 pulling critical libraries in the form of source code part of the
 source tree.
 
+## Quick Start
+
+* Using this repo requires gclient from
+  [depot_tools](https://commondatastorage.googleapis.com/chrome-infra-docs/flat/depot_tools/docs/html/depot_tools.html). Please
+  follow the [installation
+  guide](https://commondatastorage.googleapis.com/chrome-infra-docs/flat/depot_tools/docs/html/depot_tools_tutorial.html#_setting_up)
+  to get started.
+* Create an empty directory and switch to it.
+* run `gclient config https://github.com/bazelment/galaxy` to
+  initialize the config of gclient.
+* run `gclient sync` to check out everything.
+
 ## How to add a new library
 
 * Update `DEPS` file to include the SCM link of the given library, and
