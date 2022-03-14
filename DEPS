@@ -38,4 +38,7 @@ deps = {
   # protobuf & grpc
   'galaxy/third_party/protobuf': 'https://github.com/protocolbuffers/protobuf.git@v3.19.2',
   'galaxy/third_party/grpc': 'https://github.com/grpc/grpc.git@v1.43.0',
+
+  # Java libs
+  'galaxy/third_party/java/grpc-java': 'https://github.com/grpc/grpc-java.git@v1.45.0',
 }

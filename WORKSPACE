@@ -62,6 +62,11 @@ new_local_repository(
     build_file = "@com_github_grpc_grpc//third_party:zlib.BUILD",
 )
 
+local_repository(
+    name = "io_grpc_grpc_java",
+    path = "third_party/java/grpc-java",
+)
+
 # new_local_repository can't be used after load, so putting all load calls at the end.
 
 # Start of rules_jvm_external
@@ -81,19 +86,7 @@ bind(
     name = "python_headers",
     actual = "@com_google_protobuf//util/python:python_headers",
 )
-
-maven_install(
-    artifacts = PROTOBUF_MAVEN_ARTIFACTS,
-    # For updating instructions, see:
-    # https://github.com/bazelbuild/rules_jvm_external#updating-maven_installjson
-    maven_install_json = "@com_google_protobuf//:maven_install.json",
-    repositories = [
-        "https://repo1.maven.org/maven2",
-        "https://repo.maven.apache.org/maven2",
-    ],
-)
-load("@maven//:defs.bzl", "pinned_maven_install")
-pinned_maven_install()
+# All the maven_install related stuff is done in grpc-java below.
 
 # End of protobuf
 
@@ -106,3 +99,23 @@ load("@com_github_grpc_grpc//bazel:grpc_extra_deps.bzl", "grpc_extra_deps")
 grpc_extra_deps()
 
 # End of grpc
+
+# Start of grpc-java
+load("@io_grpc_grpc_java//:repositories.bzl", "IO_GRPC_GRPC_JAVA_ARTIFACTS")
+load("@io_grpc_grpc_java//:repositories.bzl", "IO_GRPC_GRPC_JAVA_OVERRIDE_TARGETS")
+load("@io_grpc_grpc_java//:repositories.bzl", "grpc_java_repositories")
+
+grpc_java_repositories()
+
+maven_install(
+    artifacts = IO_GRPC_GRPC_JAVA_ARTIFACTS + PROTOBUF_MAVEN_ARTIFACTS,
+    generate_compat_repositories = True,
+    override_targets = IO_GRPC_GRPC_JAVA_OVERRIDE_TARGETS,
+    repositories = [
+        "https://repo.maven.apache.org/maven2/",
+    ],
+)
+
+load("@maven//:compat.bzl", "compat_repositories")
+compat_repositories()
+# End of grpc-java
