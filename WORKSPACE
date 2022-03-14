@@ -107,14 +107,32 @@ load("@io_grpc_grpc_java//:repositories.bzl", "grpc_java_repositories")
 
 grpc_java_repositories()
 
+# After updating this list, we should run this command, according to
+# third_party/rules_jvm_external/README.md, to re-pin the unpinned `@maven`
+# repository:
+# $ bazel run @unpinned_maven//:pin
+
+ADDITIONAL_MAVEN_ARTIFACTS = [
+    "org.apache.logging.log4j:log4j-api:2.17.2",
+    "org.apache.logging.log4j:log4j-core:2.17.2",
+]
+
+# They can be accessed like
+# "@maven//:org_apache_logging_log4j_log4j_api"(preferred) or
+# "@org_apache_logging_log4j_log4j_api//jar"(compat style).
+
 maven_install(
-    artifacts = IO_GRPC_GRPC_JAVA_ARTIFACTS + PROTOBUF_MAVEN_ARTIFACTS,
+    artifacts = IO_GRPC_GRPC_JAVA_ARTIFACTS + PROTOBUF_MAVEN_ARTIFACTS + ADDITIONAL_MAVEN_ARTIFACTS,
     generate_compat_repositories = True,
     override_targets = IO_GRPC_GRPC_JAVA_OVERRIDE_TARGETS,
     repositories = [
         "https://repo.maven.apache.org/maven2/",
     ],
+    maven_install_json = "//:maven_install.json",
 )
+
+load("@maven//:defs.bzl", "pinned_maven_install")
+pinned_maven_install()
 
 load("@maven//:compat.bzl", "compat_repositories")
 compat_repositories()
