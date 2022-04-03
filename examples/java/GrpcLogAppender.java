@@ -74,6 +74,7 @@ public final class GrpcLogAppender extends AbstractAppender {
 
   @Override
   public void start() {
+    System.out.println("start");
     super.start();
   }
 
@@ -90,6 +91,7 @@ public final class GrpcLogAppender extends AbstractAppender {
 
   @Override
   public boolean stop(final long timeout, final TimeUnit timeUnit) {
+    System.out.println("stop");
     setStopping();
     boolean stopped = super.stop(timeout, timeUnit, false);
     try {

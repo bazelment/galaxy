@@ -14,7 +14,9 @@ public class LogGenerator {
   public static void buildConfig() {
     ConfigurationBuilder<BuiltConfiguration> builder
         = ConfigurationBuilderFactory.newConfigurationBuilder();
-    builder.add(builder.newAppender("stdout", "Console"));
+    builder.add(builder.newAppender("stdout", "Console")
+                .add(builder.newLayout("PatternLayout")
+                     .addAttribute("pattern", "%m%n")));
     builder.add(
         builder.newAppender("remote", "GRPC")
         .addAttribute("url", "localhost:50051")
@@ -22,7 +24,7 @@ public class LogGenerator {
              .addAttribute("pattern", "%m%n")));
     builder.add(
         builder.newRootLogger(Level.INFO)
-        // .add(builder.newAppenderRef("stdout"))
+        .add(builder.newAppenderRef("stdout"))
         .add(builder.newAppenderRef("remote")));
     try {
       builder.writeXmlConfiguration(System.out);
@@ -30,7 +32,7 @@ public class LogGenerator {
     }
     // Ask log4j to use the config.
     Configurator.initialize(builder.build());
-    logger = LogManager.getLogger();
+    logger = LogManager.getLogger(LogGenerator.class);
   }
 
   static {
@@ -42,5 +44,6 @@ public class LogGenerator {
     for (int i = 0; i < 100; ++i) {
       logger.info("Hello world");
     }
+    System.out.println("hello");
   }
 }
