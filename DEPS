@@ -19,7 +19,7 @@ deps = {
   'galaxy/third_party/libunwind/trunk':
     'https://chromium.googlesource.com/external/github.com/llvm/llvm-project/libunwind.git@6a10e3e97c45505615d35dea94f588b5f86045dc',
   'galaxy/third_party/boringssl/src':
-    'https://boringssl.googlesource.com/boringssl.git@master-with-bazel',
+    'https://boringssl.googlesource.com/boringssl.git@origin/master-with-bazel',
 
   # Used by boringssl.
   'galaxy/third_party/nasm': {
