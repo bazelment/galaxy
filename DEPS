@@ -27,8 +27,14 @@ deps = {
   },
   # Used by azure-sdk-for-cpp
   'galaxy/third_party/libxml2/src': 'https://github.com/GNOME/libxml2.git@v2.9.13',
+
+  # AWS libraries
+  'galaxy/third_party/aws/aws-c-common/src': 'https://github.com/awslabs/aws-c-common.git',
+  'galaxy/third_party/aws/aws-c-cal/src': 'https://github.com/awslabs/aws-c-cal.git',
+  'galaxy/third_party/aws/aws-c-io/src': 'https://github.com/awslabs/aws-c-io.git',
   # Cloud storage sdk
-  'galaxy/third_party/aws-sdk-cpp/src': 'https://github.com/aws/aws-sdk-cpp.git@1.9.168',
+  'galaxy/third_party/aws-sdk-cpp/src': 'https://github.com/aws/aws-sdk-cpp.git@1.9.379',
+  'galaxy/third_party/aws-crt-cpp/src': 'https://github.com/awslabs/aws-crt-cpp.git',
   'galaxy/third_party/azure-sdk-for-cpp/src': 'https://github.com/Azure/azure-sdk-for-cpp.git@ae3e5e021b779bcadcc5d015dbeee913c44ff305',
 
   'galaxy/third_party/googletest': 'https://github.com/google/googletest.git',
